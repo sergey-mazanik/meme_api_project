@@ -6,8 +6,14 @@ class PostNewMeme(Endpoint):
 
     def post_new_meme(self, body=None, headers=None):
         headers = headers if headers else self.headers
-        body = body if body else self.body
         self.response = requests.post(f'{self.url}/meme', json=body, headers=headers)
-        self.json = self.response.json()
-        self.creating_meme_list.append(self.json['id'])
-        return self.json['id']
+        try:
+            self.json = self.response.json()
+            self.creating_meme_list.append(self.json['id'])
+            return self.json['id']
+        except requests.exceptions.JSONDecodeError:
+            print(f'Status code is {self.response.status_code}')
+
+    def post_new_meme_without_auth_token(self, body=None):
+        self.response = requests.post(f'{self.url}/meme', json=body, headers={'Authorization': ''})
+        return self.response

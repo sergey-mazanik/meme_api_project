@@ -9,6 +9,10 @@ class DeleteMeme(Endpoint):
         self.response = requests.delete(f'{self.url}/meme/{meme_id}', headers=headers)
         return self.response
 
+    def delete_meme_without_auth_token(self, meme_id):
+        self.response = requests.delete(f'{self.url}/meme/{meme_id}', headers={'Authorization': ''})
+        return self.response
+
     def clear_data_after_testing(self, headers=None):
         headers = headers if headers else self.headers
         for meme_id in self.creating_meme_list:

@@ -51,12 +51,12 @@ def delete_meme_endpoint():
 @pytest.fixture()
 def new_meme_id():
     body = {
-        'text': 'Text',
-        'url': '',
-        'tags': [],
+        'text': 'Python logo reveals',
+        'url': 'https://preview.redd.it/44aw5j979ve61.png?auto=webp&s=a0285d3a6e42e88b15bd738bc483412bb3efb019',
+        'tags': ['IT'],
         'info': {
-            'colors': ['', ''],
-            'objects': ['', '']
+            'colors': ['blue', 'yellow'],
+            'objects': ['python', 'chair']
         }
     }
     headers = {'Authorization': cred.TOKEN}
