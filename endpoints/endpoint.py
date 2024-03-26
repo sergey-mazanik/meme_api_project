@@ -20,8 +20,9 @@ class Endpoint:
     def check_that_status_is_401(self):
         assert self.response.status_code == 401, f'Status code is {self.response.status_code}'
 
+    def check_that_status_is_403(self):
+        assert self.response.status_code == 403, f'Status code is {self.response.status_code}'
+
     def check_that_status_is_404(self):
         assert self.response.status_code == 404, f'Status code is {self.response.status_code}'
 
-    def check_that_status_is_405(self):
-        assert self.response.status_code == 405, f'Status code is {self.response.status_code}'
