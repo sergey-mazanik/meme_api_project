@@ -9,7 +9,6 @@ class GetOneMeme(Endpoint):
         self.response = requests.get(f'{self.url}/meme/{meme_id}', headers=headers)
         try:
             self.json = self.response.json()
-            print(self.json)
             return self.response
         except requests.exceptions.JSONDecodeError:
             return self.response

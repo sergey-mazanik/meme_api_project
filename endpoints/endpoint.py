@@ -1,14 +1,18 @@
-import cred
+import os
+import dotenv
 from faker import Faker
+
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 
 class Endpoint:
-    url = cred.API_URL
+    url = os.getenv('API_URL')
     body = {'name': Faker().name()}
     response = None
     json = None
-    token = cred.TOKEN
-    headers = {'Authorization': cred.TOKEN}
+    token = os.getenv('TOKEN')
+    user = os.getenv('USER_NAME')
+    headers = {'Authorization': os.getenv('TOKEN')}
     creating_meme_list = []
 
     def check_that_status_is_200(self):

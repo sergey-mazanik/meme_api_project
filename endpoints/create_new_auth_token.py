@@ -1,7 +1,8 @@
 import requests
-import os
+import dotenv
 from endpoints.endpoint import Endpoint
-from faker import Faker
+
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 
 class CreateNewAuthToken(Endpoint):
@@ -10,11 +11,9 @@ class CreateNewAuthToken(Endpoint):
         body = body if body else self.body
         self.response = requests.post(f'{self.url}/authorize', json=body)
         self.json = self.response.json()
+        dotenv.set_key(dotenv.find_dotenv(), 'TOKEN', self.json['token'])
+        dotenv.set_key(dotenv.find_dotenv(), 'USER_NAME', self.json['user'])
         self.token = self.json['token']
-        with open(f'{os.path.abspath(os.curdir)}/cred.py', 'w') as f:
-            f.write(f'TOKEN = "{self.json['token']}"\n'
-                    f'USER_NAME = "{self.json['user']}"\n'
-                    f'API_URL = "{self.url}"\n')
         return self.response
 
     def create_new_auth_token_positive(self, body=None):

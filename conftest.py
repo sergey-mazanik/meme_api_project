@@ -1,6 +1,6 @@
 import pytest
 import requests
-import cred
+import os
 from endpoints.create_new_auth_token import CreateNewAuthToken
 from endpoints.get_alive_auth_token import GetAliveAuthToken
 from endpoints.get_all_memes import GetAllMemes
@@ -26,6 +26,7 @@ def use_or_create_new_auth_token(get_alive_token_endpoint, create_new_auth_token
         return None
     else:
         create_new_auth_token_endpoint.create_new_auth_token_and_rewrite()
+        return None
 
 
 @pytest.fixture()
@@ -59,21 +60,13 @@ def new_meme_id():
             'objects': ['python', 'chair']
         }
     }
-    headers = {'Authorization': cred.TOKEN}
-    response = requests.post(f'{cred.API_URL}/meme', json=body, headers=headers)
+    headers = {'Authorization': os.getenv('TOKEN')}
+    response = requests.post(f'{os.getenv('API_URL')}/meme', json=body, headers=headers)
     meme_id = response.json()['id']
     yield meme_id
-    requests.delete(f'{cred.API_URL}/meme/{meme_id}', headers=headers)
+    requests.delete(f'{os.getenv('API_URL')}/meme/{meme_id}', headers=headers)
 
 
 @pytest.fixture()
 def make_changes_in_meme_endpoint():
     return PutChangesMeme()
-
-
-@pytest.fixture(scope='session')
-def start_end_testing():
-    print('\nStart testing')
-    yield
-
-    print('\nTesting completed')
