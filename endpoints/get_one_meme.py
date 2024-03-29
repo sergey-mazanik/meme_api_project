@@ -16,3 +16,6 @@ class GetOneMeme(Endpoint):
     def get_one_meme_without_auth_token(self, meme_id):
         self.response = requests.get(f'{self.url}/meme/{meme_id}', headers={'Authorization': ''})
         return self.response
+
+    def check_that_response_meme_id_is_correct(self, meme_id):
+        assert self.json['id'] == meme_id, 'meme_id is not correct'

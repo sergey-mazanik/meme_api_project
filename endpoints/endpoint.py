@@ -30,3 +30,8 @@ class Endpoint:
     def check_that_status_is_404(self):
         assert self.response.status_code == 404, f'Status code is {self.response.status_code}'
 
+    def check_that_author_is_correct(self):
+        assert self.json['updated_by'] == os.getenv('USER_NAME'), f"{self.json['updated_by']} is not correct author"
+
+    def check_that_response_text_is_correct(self, data):
+        assert self.json['text'] == data['text'], 'Response text is not correct'
