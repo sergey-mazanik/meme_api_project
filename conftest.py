@@ -36,6 +36,11 @@ def post_meme_endpoint():
 
 
 @pytest.fixture()
+def make_changes_in_meme_endpoint():
+    return PutChangesMeme()
+
+
+@pytest.fixture()
 def delete_meme_endpoint():
     return DeleteMeme()
 
@@ -56,8 +61,3 @@ def new_meme_id():
     meme_id = response.json()['id']
     yield meme_id
     requests.delete(f'{os.getenv('API_URL')}/meme/{meme_id}', headers=headers)
-
-
-@pytest.fixture()
-def make_changes_in_meme_endpoint():
-    return PutChangesMeme()
