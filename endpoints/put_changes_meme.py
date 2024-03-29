@@ -1,9 +1,11 @@
+import allure
 import requests
 from endpoints.endpoint import Endpoint
 
 
 class PutChangesMeme(Endpoint):
 
+    @allure.step('Make changes in meme')
     def make_changes_in_meme(self, meme_id, body=None, headers=None):
         headers = headers if headers else self.headers
         body['id'] = meme_id
@@ -14,11 +16,13 @@ class PutChangesMeme(Endpoint):
         except requests.exceptions.JSONDecodeError:
             return self.response
 
+    @allure.step('Make changes in meme without id')
     def make_changes_in_meme_without_id(self, meme_id, body=None, headers=None):
         headers = headers if headers else self.headers
         self.response = requests.put(f'{self.url}/meme/{meme_id}', json=body, headers=headers)
         return self.response
 
+    @allure.step('Make changes in meme without authorization')
     def make_changes_in_meme_without_auth_token(self, meme_id, body=None):
         body['id'] = meme_id
         self.response = requests.put(f'{self.url}/meme/{meme_id}', json=body, headers={'Authorization': ''})

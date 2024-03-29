@@ -21,15 +21,6 @@ def get_alive_token_endpoint():
 
 
 @pytest.fixture()
-def use_or_create_new_auth_token(get_alive_token_endpoint, create_new_auth_token_endpoint):
-    if get_alive_token_endpoint.get_alive_token() == 200:
-        return None
-    else:
-        create_new_auth_token_endpoint.create_new_auth_token_and_rewrite()
-        return None
-
-
-@pytest.fixture()
 def get_all_memes_endpoint():
     return GetAllMemes()
 
