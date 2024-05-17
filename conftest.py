@@ -57,7 +57,7 @@ def new_meme_id():
         }
     }
     headers = {'Authorization': os.getenv('TOKEN')}
-    response = requests.post(f'{os.getenv('API_URL')}/meme', json=body, headers=headers)
+    response = requests.post(f"{os.getenv('API_URL')}/meme", json=body, headers=headers)
     meme_id = response.json()['id']
     yield meme_id
-    requests.delete(f'{os.getenv('API_URL')}/meme/{meme_id}', headers=headers)
+    requests.delete(f"{os.getenv('API_URL')}/meme/{meme_id}", headers=headers)
